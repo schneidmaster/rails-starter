@@ -1,0 +1,23 @@
+development: &default
+  adapter: postgresql
+  database: application_development
+  encoding: utf8
+  host: localhost
+  min_messages: warning
+  pool: 2
+  timeout: 5000
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: application_test<%= ENV['TEST_ENV_NUMBER'] %>
+
+staging:
+  <<: *default
+  pool: <%= ENV['DB_POOL'] %>
+
+production:
+  <<: *default
+  pool: <%= ENV['DB_POOL'] %>
