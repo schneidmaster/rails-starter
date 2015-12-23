@@ -18,6 +18,11 @@ gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-berniestrap'
+  gem 'rails-assets-noty'
+end
+
 group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
