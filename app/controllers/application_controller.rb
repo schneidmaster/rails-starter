@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
 
   around_action :catch_halt
 
-  before_action :authenticate!
-  check_authorization
+  before_action :authenticate!, unless: :pages_controller?
+  check_authorization unless: :pages_controller?
 
   rescue_from CanCan::AccessDenied do |_exception|
     catch :halt do
@@ -47,5 +47,9 @@ class ApplicationController < ActionController::Base
   def authenticate!
     token = Token.find_by(token: session[:user_token])
     render_unauthenticated! unless token && token.unexpired?
+  end
+
+  def pages_controller?
+    is_a?(HighVoltage::PagesController)
   end
 end
